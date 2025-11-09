@@ -1,0 +1,69 @@
+
+class Worker {
+    protected String name;
+    protected double salaryRate;
+
+    public Worker(String name, double salaryRate) {
+        this.name = name;
+        this.salaryRate = salaryRate;
+    }
+
+    public double computePay(int hours) {
+        return salaryRate * hours; // Default calculation
+    }
+
+    public void displayPay(double pay) {
+        System.out.println("Worker Name: " + name);
+        System.out.println("Weekly Pay: " + pay);
+        System.out.println("----------------------------");
+    }
+}
+
+
+class DailyWorker extends Worker {
+    private int noOfDays;
+
+    public DailyWorker(String name, double salaryRate, int noOfDays) {
+        super(name, salaryRate);
+        this.noOfDays = noOfDays;
+    }
+
+   
+    public double computePay(int hours) {
+        return salaryRate * noOfDays; // Paid per day
+    }
+}
+
+
+class SalariedWorker extends Worker {
+    private int noOfHours;
+
+    public SalariedWorker(String name, double salaryRate, int noOfHours) {
+        super(name, salaryRate);
+        this.noOfHours = noOfHours;
+    }
+
+   
+    public double computePay(int hours) {
+        return salaryRate * 40; // Fixed for 40 hours
+    }
+}
+
+
+public class q2 {
+    public static void main(String[] args) {
+        System.out.println("--- Worker Pay Calculation ---\n");
+
+       
+        DailyWorker d1 = new DailyWorker("John", 500, 5);
+        double dailyPay = d1.computePay(0);
+        d1.displayPay(dailyPay);
+
+        
+        SalariedWorker s1 = new SalariedWorker("Alice", 300, 40);
+        double salariedPay = s1.computePay(0);
+        s1.displayPay(salariedPay);
+
+        System.out.println("Program executed successfully!");
+    }
+}
