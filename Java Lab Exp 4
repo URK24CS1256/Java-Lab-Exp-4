@@ -1,69 +1,77 @@
+import java.util.Scanner;
 
-class Worker {
-    protected String name;
-    protected double salaryRate;
+class Fruit {
+    private String name;
+    private double pricePerKg;
+    private double quantity;
 
-    public Worker(String name, double salaryRate) {
+    public Fruit(String name, double pricePerKg, double quantity) {
         this.name = name;
-        this.salaryRate = salaryRate;
+        this.pricePerKg = pricePerKg;
+        this.quantity = quantity;
     }
 
-    public double computePay(int hours) {
-        return salaryRate * hours; // Default calculation
+    public double calculateTotalCost() {
+        return pricePerKg * quantity;
     }
 
-    public void displayPay(double pay) {
-        System.out.println("Worker Name: " + name);
-        System.out.println("Weekly Pay: " + pay);
-        System.out.println("----------------------------");
-    }
-}
-
-
-class DailyWorker extends Worker {
-    private int noOfDays;
-
-    public DailyWorker(String name, double salaryRate, int noOfDays) {
-        super(name, salaryRate);
-        this.noOfDays = noOfDays;
+    public void displayDetails() {
+        System.out.println("Fruit Name    : " + name);
+        System.out.println("Price per Kg  : " + pricePerKg);
+        System.out.println("Quantity (Kg) : " + quantity);
+        System.out.println("Total Cost    : " + calculateTotalCost());
+        System.out.println();
     }
 
-   
-    public double computePay(int hours) {
-        return salaryRate * noOfDays; // Paid per day
+    public void updatePrice(double newPrice) {
+        this.pricePerKg = newPrice;
+    }
+
+    public void updateQuantity(double newQuantity) {
+        this.quantity = newQuantity;
     }
 }
 
-
-class SalariedWorker extends Worker {
-    private int noOfHours;
-
-    public SalariedWorker(String name, double salaryRate, int noOfHours) {
-        super(name, salaryRate);
-        this.noOfHours = noOfHours;
-    }
-
-   
-    public double computePay(int hours) {
-        return salaryRate * 40; // Fixed for 40 hours
-    }
-}
-
-
-public class q2 {
+public class q7 {
     public static void main(String[] args) {
-        System.out.println("--- Worker Pay Calculation ---\n");
+        Scanner sc = new Scanner(System.in);
 
-       
-        DailyWorker d1 = new DailyWorker("John", 500, 5);
-        double dailyPay = d1.computePay(0);
-        d1.displayPay(dailyPay);
+        // First fruit input
+        System.out.print("Enter first fruit name: ");
+        String name1 = sc.next();
+        System.out.print("Enter price per kg for " + name1 + ": ");
+        double price1 = sc.nextDouble();
+        System.out.print("Enter quantity (kg) of " + name1 + ": ");
+        double qty1 = sc.nextDouble();
+        Fruit fruit1 = new Fruit(name1, price1, qty1);
 
-        
-        SalariedWorker s1 = new SalariedWorker("Alice", 300, 40);
-        double salariedPay = s1.computePay(0);
-        s1.displayPay(salariedPay);
+        // Second fruit input
+        System.out.print("Enter second fruit name: ");
+        String name2 = sc.next();
+        System.out.print("Enter price per kg for " + name2 + ": ");
+        double price2 = sc.nextDouble();
+        System.out.print("Enter quantity (kg) of " + name2 + ": ");
+        double qty2 = sc.nextDouble();
+        Fruit fruit2 = new Fruit(name2, price2, qty2);
 
-        System.out.println("Program executed successfully!");
+        // Display fruit details
+        System.out.println("\n--- Fruit Purchase Details ---");
+        fruit1.displayDetails();
+        fruit2.displayDetails();
+
+        // Update first fruit’s details
+        System.out.print("Enter new price per kg for " + name1 + ": ");
+        double newPrice = sc.nextDouble();
+        System.out.print("Enter new quantity for " + name1 + ": ");
+        double newQty = sc.nextDouble();
+
+        fruit1.updatePrice(newPrice);
+        fruit1.updateQuantity(newQty);
+
+        // Display updated details
+        System.out.println("\n--- Updated Fruit Details for " + name1 + " ---");
+        fruit1.displayDetails();
+
+        sc.close();
     }
 }
